@@ -86,8 +86,10 @@ fn cat_file(option: &str, object: &str) -> String {
     //convert the data to a string
     let contents = String::from_utf8(contents).unwrap();
 
-    //return the contents
-    return contents;
+    //return everything after the \x00
+    let contents = contents.split("\x00").collect::<Vec<&str>>()[1];
+
+    return contents.to_string();
 }
 
 fn hash_object(data: &str) -> String {
